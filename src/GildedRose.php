@@ -2,57 +2,38 @@
 
 namespace App;
 
-final class GildedRose
+use App\Models\Product;
+use App\Models\AgedBrieProduct;
+use App\Models\StandardProduct;
+use App\Models\SulfurasProduct;
+use App\Models\BackstageProduct;
+
+interface Creator
 {
-    public function updateQuality($item)
+    public static function create(string $name, int $sellIn, int $quality);
+}
+
+final class ProductCreator implements Creator
+{
+    private function __constructor()
     {
-        if ($item->name != 'Aged Brie' and $item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-            if ($item->quality > 0) {
-                if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                    $item->quality = $item->quality - 1;
-                } else {
-                    $item->quality = 80;
-                }
-            }
-        } else {
-            if ($item->quality < 50) {
-                $item->quality = $item->quality + 1;
-                if ($item->name == 'Backstage passes to a TAFKAL80ETC concert') {
-                    if ($item->sell_in < 11) {
-                        if ($item->quality < 50) {
-                            $item->quality = $item->quality + 1;
-                        }
-                    }
-                    if ($item->sell_in < 6) {
-                        if ($item->quality < 50) {
-                            $item->quality = $item->quality + 1;
-                        }
-                    }
-                }
-            }
-        }
-
-        if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-            $item->sell_in = $item->sell_in - 1;
-        }
-
-        if ($item->sell_in < 0) {
-            if ($item->name != 'Aged Brie') {
-                if ($item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-                    if ($item->quality > 0) {
-                        if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                            $item->quality = $item->quality - 1;
-                        }
-                    }
-                } else {
-                    $item->quality = $item->quality - $item->quality;
-                }
-            } else {
-                if ($item->quality < 50) {
-                    $item->quality = $item->quality + 1;
-                }
-            }
-        }
+        // 
     }
 
+    public static function create(string $name, int $sellIn, int $quality): Product
+    {
+        switch ($name) {
+            case 'Aged Brie':
+                return new AgedBrieProduct($name, $sellIn, $quality);
+                break;
+            case 'Sulfuras, Hand of Ragnaros':
+                return new SulfurasProduct($name, $sellIn, $quality);
+                break;
+            case 'Backstage passes to a TAFKAL80ETC concert':
+                return new BackstageProduct($name, $sellIn, $quality);
+                break;
+            default:
+                return new StandardProduct($name, $sellIn, $quality);
+        }
+    }
 }
