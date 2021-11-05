@@ -2,7 +2,7 @@
 
 namespace App;
 
-require_once 'src/GildedRose.php';
+require_once __DIR__ . '/../src/ProductCreator.php';
 
 use App\ProductCreator;
 use PHPUnit\Framework\TestCase;
