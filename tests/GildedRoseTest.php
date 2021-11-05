@@ -1,7 +1,10 @@
 <?php
 
-use App\GildedRose;
-use App\Item;
+namespace App;
+
+require_once 'src/GildedRose.php';
+
+use App\ProductCreator;
 use PHPUnit\Framework\TestCase;
 
 class GildedRoseTest extends TestCase
@@ -16,12 +19,10 @@ class GildedRoseTest extends TestCase
      */
     public function testUpdateQualityTest($name, $sellIn, $quality, $expectedSellIn, $expectedQuality): void
     {
-        $item = new Item($name, $sellIn, $quality);
+        $item = ProductCreator::create($name, $sellIn, $quality);
+        $item->updateQuality();
 
-        $gildedRose = new GildedRose();
-        $gildedRose->updateQuality($item);
-
-        $this->assertEquals($expectedSellIn, $item->sell_in);
+        $this->assertEquals($expectedSellIn, $item->sellIn);
         $this->assertEquals($expectedQuality, $item->quality);
     }
 
