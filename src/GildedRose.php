@@ -8,12 +8,12 @@ use App\Models\StandardProduct;
 use App\Models\SulfurasProduct;
 use App\Models\BackstageProduct;
 
-interface Creator
+interface CreatorInterface
 {
     public static function create(string $name, int $sellIn, int $quality);
 }
 
-final class ProductCreator implements Creator
+final class ProductCreator implements CreatorInterface
 {
     private function __constructor()
     {
@@ -22,18 +22,22 @@ final class ProductCreator implements Creator
 
     public static function create(string $name, int $sellIn, int $quality): Product
     {
-        switch ($name) {
-            case 'Aged Brie':
-                return new AgedBrieProduct($name, $sellIn, $quality);
-                break;
-            case 'Sulfuras, Hand of Ragnaros':
-                return new SulfurasProduct($name, $sellIn, $quality);
-                break;
-            case 'Backstage passes to a TAFKAL80ETC concert':
-                return new BackstageProduct($name, $sellIn, $quality);
-                break;
-            default:
-                return new StandardProduct($name, $sellIn, $quality);
+        if (!empty($name)) {
+            switch ($name) {
+                case 'Aged Brie':
+                    return new AgedBrieProduct($name, $sellIn, $quality);
+                    break;
+                case 'Sulfuras, Hand of Ragnaros':
+                    return new SulfurasProduct($name, $sellIn, $quality);
+                    break;
+                case 'Backstage passes to a TAFKAL80ETC concert':
+                    return new BackstageProduct($name, $sellIn, $quality);
+                    break;
+                default:
+                    return new StandardProduct($name, $sellIn, $quality);
+            }
+        } else {
+            throw new \Exception('The name value cannot be empty.');
         }
     }
 }

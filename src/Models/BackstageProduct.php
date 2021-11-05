@@ -8,11 +8,13 @@ class BackstageProduct extends Product
     {
         if ($this->quality < 50) {
             $this->quality++;
+
             if ($this->sellIn < 11) {
                 if ($this->quality < 50) {
                     $this->quality++;
                 }
             }
+
             if ($this->sellIn < 6) {
                 if ($this->quality < 50) {
                     $this->quality++;
@@ -20,7 +22,7 @@ class BackstageProduct extends Product
             }
         }
 
-        $this->sellIn = $this->sellIn - 1;
+        $this->sellIn--;
 
         if ($this->sellIn < 0) {
             $this->quality -= $this->quality;
