@@ -2,8 +2,16 @@
 
 namespace App\Models;
 
+/**
+ * BackstageProduct
+ */
 class BackstageProduct extends Product
 {
+    /**
+     * updateQuality
+     *
+     * @return void
+     */
     public function updateQuality(): void
     {
         if ($this->quality < 50) {

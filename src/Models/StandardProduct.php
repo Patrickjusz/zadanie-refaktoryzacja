@@ -2,8 +2,16 @@
 
 namespace App\Models;
 
+/**
+ * StandardProduct
+ */
 class StandardProduct extends Product
 {
+    /**
+     * updateQuality
+     *
+     * @return void
+     */
     public function updateQuality(): void
     {
         $this->quality -= 1;

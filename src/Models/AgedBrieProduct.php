@@ -2,8 +2,16 @@
 
 namespace App\Models;
 
+/**
+ * AgedBrieProduct
+ */
 class AgedBrieProduct extends Product
 {
+    /**
+     * updateQuality
+     *
+     * @return void
+     */
     public function updateQuality(): void
     {
         if ($this->quality < 50) {

@@ -10,9 +10,25 @@ use App\Models\BackstageProduct;
 
 interface CreatorInterface
 {
+    /**
+     * create
+     *
+     * @param  string $name
+     * @param  int $sellIn
+     * @param  int $quality
+     * @return void
+     */
     public static function create(string $name, int $sellIn, int $quality);
 }
 
+/**
+ * ProductCreator - product factory 
+ * 
+ * Example usage: 
+ * $product = ProductCreator::create($name, $sellIn, $quality);
+ * 
+ * @author Patryk Jastrzębski <kontakt@pjastrzebski.pl>
+ */
 final class ProductCreator implements CreatorInterface
 {
     private function __constructor()
@@ -20,6 +36,14 @@ final class ProductCreator implements CreatorInterface
         // 
     }
 
+    /**
+     * create
+     *
+     * @param  string $name
+     * @param  int $sellIn
+     * @param  int $quality
+     * @return Product
+     */
     public static function create(string $name, int $sellIn, int $quality): Product
     {
         if (!empty($name)) {
